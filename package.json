@@ -6,6 +6,9 @@
   "license": "MIT",
   "homepage": "https://github.com/bipiane/movies-graphql-api#readme",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bipiane/movies-graphql-api.git"
