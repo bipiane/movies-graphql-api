@@ -1,0 +1,31 @@
+{
+  "name": "movies-graphql-api",
+  "version": "1.0.0",
+  "description": "Movies API with GraphQL",
+  "author": "Ivan Pianetti",
+  "license": "MIT",
+  "homepage": "https://github.com/bipiane/movies-graphql-api#readme",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bipiane/movies-graphql-api.git"
+  },
+  "keywords": [
+    "MongoDB",
+    "GraphQL",
+    "NodeJS"
+  ],
+  "bugs": {
+    "url": "https://github.com/bipiane/movies-graphql-api/issues"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
