@@ -11,66 +11,8 @@ const {
 const Movie = require('../models/movie');
 const Cast = require('../models/cast');
 
-const CastType = new GraphQLObjectType({
-    name: 'Cast',
-    description: 'Reparto de la película',
-    fields: () => ({
-        id: {
-            type: GraphQLString,
-            resolve: cast => cast._id
-        },
-        actor: {
-            type: GraphQLString,
-            resolve: cast => cast.actor
-        },
-        character: {
-            type: GraphQLString,
-            resolve: cast => cast.character
-        },
-        movie: {
-            type: MovieType,
-            resolve: cast => {
-                return Movie.findById(cast.movie)
-            }
-        }
-    })
-});
-
-const MovieType = new GraphQLObjectType({
-    name: 'Movie',
-    description: 'Película',
-    fields: () => ({
-        id: {
-            type: GraphQLString,
-            resolve: movie => movie._id
-        },
-        title: {
-            type: GraphQLString,
-            resolve: movie => movie.title
-        },
-        year: {
-            type: GraphQLInt,
-            description: 'Año de lanzamiento',
-            resolve: movie => movie.year
-        },
-        description: {
-            type: GraphQLString,
-            resolve: movie =>
-                movie.description
-        },
-        fullcast: {
-            type: new GraphQLList(CastType),
-            description: 'Lista completa del reparto',
-            resolve: movie => {
-                let promises = [];
-                movie.fullcast.forEach(idCast => {
-                    promises.push(Cast.findById(idCast))
-                });
-                return Promise.all(promises);
-            }
-        }
-    })
-});
+const MovieType = require('./MovieType');
+const CastType = require('./CastType');
 
 module.exports = new GraphQLSchema({
     //query
@@ -128,7 +70,7 @@ module.exports = new GraphQLSchema({
     // mutation
     mutation: new GraphQLObjectType({
         name: 'Mutation',
-        fields: {
+        fields: () => ({
             addMovie: {
                 type: MovieType,
                 args: {
@@ -196,6 +138,6 @@ module.exports = new GraphQLSchema({
                     return Cast.findOneAndRemove({_id: id});
                 }
             },
-        }
+        })
     })
 });
