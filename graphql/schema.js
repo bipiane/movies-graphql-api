@@ -95,6 +95,17 @@ module.exports = new GraphQLSchema({
                     return Movie.find({})
                 }
             },
+            moviesByTitle: {
+                type: new GraphQLList(MovieType),
+                description: 'Lista de películas por título',
+                args: {
+                    title: {type: new GraphQLNonNull(GraphQLString)}
+                },
+                resolve: (root, args) => {
+                    const regex = new RegExp(args.title, "i");
+                    return Movie.find({title: regex})
+                }
+            },
             cast: {
                 type: CastType,
                 description: 'Obtener un reparto por ID',
@@ -103,6 +114,13 @@ module.exports = new GraphQLSchema({
                 },
                 resolve: (root, args) => {
                     return Cast.findById(args.id)
+                }
+            },
+            allCast: {
+                type: new GraphQLList(CastType),
+                description: 'Lista de reparto',
+                resolve: () => {
+                    return Cast.find({})
                 }
             },
         })
