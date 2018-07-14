@@ -1,6 +1,7 @@
 const {
     GraphQLSchema,
     GraphQLObjectType,
+    GraphQLID,
     GraphQLInt,
     GraphQLString,
     GraphQLList,
@@ -41,7 +42,7 @@ const MovieType = new GraphQLObjectType({
     fields: () => ({
         id: {
             type: GraphQLString,
-            resolve: cast => cast._id
+            resolve: movie => movie._id
         },
         title: {
             type: GraphQLString,
@@ -81,7 +82,7 @@ module.exports = new GraphQLSchema({
                 type: MovieType,
                 description: 'Obtener una película por ID',
                 args: {
-                    id: {type: GraphQLString}
+                    id: {type: new GraphQLNonNull(GraphQLString)}
                 },
                 resolve: (root, args) => {
                     return Movie.findById(args.id)
@@ -110,16 +111,16 @@ module.exports = new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: 'Mutation',
         fields: {
-            createMovie: {
+            addMovie: {
                 type: MovieType,
                 args: {
                     title: {
                         name: 'titulo',
-                        type: GraphQLString
+                        type: new GraphQLNonNull(GraphQLString)
                     },
                     year: {
                         name: 'Año',
-                        type: GraphQLInt
+                        type: new GraphQLNonNull(GraphQLInt)
                     }
                 },
                 resolve: (obj, {title, year}, source, fieldASTs) => {
@@ -139,6 +140,42 @@ module.exports = new GraphQLSchema({
                 },
                 resolve: (obj, {id}, source, fieldASTs) => {
                     return Movie.findOneAndRemove({_id: id});
+                }
+            },
+            addCast: {
+                type: CastType,
+                args: {
+                    actor: {
+                        name: 'Actor',
+                        type: new GraphQLNonNull(GraphQLString)
+                    },
+                    character: {
+                        name: 'Personaje',
+                        type: new GraphQLNonNull(GraphQLString)
+                    },
+                    movie: {
+                        name: 'Id de Película',
+                        type: new GraphQLNonNull(GraphQLID)
+                    }
+                },
+                resolve: (obj, {actor, character, movie}, source, fieldASTs) => {
+                    let cast = new Cast();
+                    cast.actor = actor;
+                    cast.character = character;
+                    cast.movie = movie;
+                    return cast.save();
+                }
+            },
+            deleteCast: {
+                type: CastType,
+                args: {
+                    id: {
+                        name: 'id',
+                        type: new GraphQLNonNull(GraphQLString)
+                    }
+                },
+                resolve: (obj, {id}, source, fieldASTs) => {
+                    return Cast.findOneAndRemove({_id: id});
                 }
             },
         }
