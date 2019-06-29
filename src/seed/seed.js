@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Utilidades = require('../utilidades');
+const Utilidades = require('../utils/utilidades');
 const Movie = require('../models/movie');
 const Cast = require('../models/cast');
 

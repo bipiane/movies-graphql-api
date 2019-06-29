@@ -1,7 +1,7 @@
 const assert = require('assert');
-const Utilidades = require('../utilidades');
-const Movie = require('../models/movie');
-const Cast = require('../models/cast');
+const Utilidades = require('../src/utils/utilidades');
+const Movie = require('../src/models/movie');
+const Cast = require('../src/models/cast');
 
 describe('Saving objects', function () {
 
