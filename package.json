@@ -9,6 +9,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "mocha",
+    "seed": "node --harmony ./seed/seed.js"
   },
   "repository": {
     "type": "git",

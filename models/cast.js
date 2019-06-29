@@ -13,7 +13,7 @@ const CastSchema = Schema({
     character: {
         type: String,
         required: [true, 'El personaje es obligatorio'],
-        minlength: [4, 'El personaje debe tener al menos 4 caracteres'],
+        minlength: [2, 'El personaje debe tener al menos 2 caracteres'],
         maxlength: [250, 'El personaje debe tener menos de 250 caracteres']
     },
     movie: {
