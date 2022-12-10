@@ -24,7 +24,7 @@
     "url": "https://github.com/bipiane/movies-graphql-api/issues"
   },
   "dependencies": {
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.2",
     "mocha": "^5.2.0",
